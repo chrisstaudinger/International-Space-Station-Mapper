@@ -22,7 +22,6 @@ const getISS = async () => {
 
 const getISSData = async () => {  
   const apiEndpoint = await getISS()
-  console.log(apiEndpoint)
   const response = await fetch(apiEndpoint)
   const data = await response.json()
   const {latitude, longitude} =  data;
@@ -32,15 +31,18 @@ const getISSData = async () => {
   longitudeText.innerHTML = `${longitude}`
   latitudeText.innerHTML = `${latitude}`
   
-  map.setView([longitude, latitude], 4)
-  let marker = markerr
+  map.setView([latitude, longitude], 3)
+  const marker = L.marker([latitude, longitude], {icon: issIcon}).addTo(map)
   
   updateISSMarker(latitude, longitude, marker)
 }
 
 const updateISSMarker = (lat, long, marker) => {
-  marker.latitude = lat
-  marker.longitude = long
+  console.log(marker)
+  if (marker) {
+    map.removeLayer(marker)
+    L.marker([lat, long], {icon: issIcon}).addTo(map)
+  } 
 }
 
 const issIcon = L.icon({
@@ -50,7 +52,7 @@ const issIcon = L.icon({
 })
 
 const map = L.map('mapid').setView([0, 0], 0)
-const markerr = L.marker([0, 0], {icon: issIcon}).addTo(map)
+const marker = L.marker([0, 0], {icon: issIcon}).addTo(map)
 
 const showMap = () => {
   const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -58,6 +60,7 @@ const showMap = () => {
 
   const tiles = L.tileLayer(tileUrl, {attribution})
   tiles.addTo(map)
+  // const marker = L.marker([0, 0], {icon: issIcon}).addTo(map)
 }
 
 showMap();
