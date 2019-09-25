@@ -45,10 +45,11 @@ const getISSData = async () => {
 
 const updateISSMarker = (lat, long, marker) => {
   console.log(marker)
-  if (marker) {
+    // L.clearLayers()
+    
     map.removeLayer(marker)
-    L.marker([lat, long], {icon: issIcon}).addTo(map)
-  } 
+    let markerr = L.marker([lat, long], {icon: issIcon}).addTo(map)
+    marker.addTo(map)
 }
 
 const issIcon = L.icon({
