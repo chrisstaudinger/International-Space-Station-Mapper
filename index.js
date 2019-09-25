@@ -4,14 +4,20 @@ const endpoint = "https://api.wheretheiss.at/v1/satellites"
 const createElem = (elem) => document.createElement(elem)
 const appendNode =  (parent, node) => parent.appendChild(node)
 
-const title = createElem('h1')
-title.innerHTML = 'Where is the International Space Station?'
-const titleSectionWrapper = document.getElementById('title-section-wrapper')
-appendNode(titleSectionWrapper, title)
-const longitudeText = createElem('h3')
-appendNode(titleSectionWrapper, longitudeText)
-const latitudeText = createElem('h3')
-appendNode(titleSectionWrapper, latitudeText)
+const latLongWrapper = document.querySelector('#lat-long-wrapper')
+
+const latHeading = createElem('h3')
+latHeading.innerHTML = 'Latitude: '
+appendNode(latLongWrapper, latHeading)
+
+const longHeading = createElem('h3')
+appendNode(latLongWrapper, longHeading)
+longHeading.innerHTML = 'Longitude: '
+
+const latitudeText = createElem('span')
+appendNode(latHeading, latitudeText)
+const longitudeText = createElem('span')
+appendNode(longHeading, longitudeText)
 
 const getISS = async () => {
   const resp = await fetch(endpoint)
@@ -39,10 +45,11 @@ const getISSData = async () => {
 
 const updateISSMarker = (lat, long, marker) => {
   console.log(marker)
-  if (marker) {
+    // L.clearLayers()
+    
     map.removeLayer(marker)
-    L.marker([lat, long], {icon: issIcon}).addTo(map)
-  } 
+    let markerr = L.marker([lat, long], {icon: issIcon}).addTo(map)
+    marker.addTo(map)
 }
 
 const issIcon = L.icon({
@@ -52,7 +59,6 @@ const issIcon = L.icon({
 })
 
 const map = L.map('mapid').setView([0, 0], 0)
-const marker = L.marker([0, 0], {icon: issIcon}).addTo(map)
 
 const showMap = () => {
   const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
