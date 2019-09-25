@@ -1,4 +1,3 @@
-// const fetch = require('node-fetch')
 const endpoint = "https://api.wheretheiss.at/v1/satellites"
 
 const createElem = (elem) => document.createElement(elem)
@@ -37,19 +36,17 @@ const getISSData = async () => {
   longitudeText.innerHTML = `${longitude}`
   latitudeText.innerHTML = `${latitude}`
   
-  map.setView([latitude, longitude], 3)
-  const marker = L.marker([latitude, longitude], {icon: issIcon}).addTo(map)
+  map.setView([latitude, longitude], 4)
+  const marker = L.marker([latitude, longitude], {icon: issIcon})
   
-  updateISSMarker(latitude, longitude, marker)
+  updateISSMarker(latitude, longitude)
 }
 
-const updateISSMarker = (lat, long, marker) => {
-  console.log(marker)
-    // L.clearLayers()
-    
-    map.removeLayer(marker)
-    let markerr = L.marker([lat, long], {icon: issIcon}).addTo(map)
-    marker.addTo(map)
+const updateISSMarker = (lat, long) => {
+  console.log(markers)
+  markers.clearLayers()
+  let marker = L.marker([lat, long], {icon: issIcon})
+  marker.addTo(markers)
 }
 
 const issIcon = L.icon({
@@ -59,6 +56,8 @@ const issIcon = L.icon({
 })
 
 const map = L.map('mapid').setView([0, 0], 0)
+const markers = L.layerGroup()
+markers.addTo(map);
 
 const showMap = () => {
   const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -66,11 +65,10 @@ const showMap = () => {
 
   const tiles = L.tileLayer(tileUrl, {attribution})
   tiles.addTo(map)
-  // const marker = L.marker([0, 0], {icon: issIcon}).addTo(map)
 }
 
 showMap();
 
 setInterval(() => {
   getISSData()
-}, 2500)
+}, 3000)
