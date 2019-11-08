@@ -1,8 +1,8 @@
 # International Space Station Mapper 🛰
 
-# [View The Application Here](https://iss-mapper.netlify.com/)
+# [View Application Here](https://iss-mapper.netlify.com/)
 
-![ISS Mapper Gif](https://github.com/chrisstaudinger/Drumkit-App-Vanilla-JS/blob/master/assets/images/drumkit1.gif?raw=true "ISS Mapper Gif")
+![ISS Mapper Gif](https://github.com/chrisstaudinger/International-Space-Station-Mapper/blob/master/assets/images/2019-11-08%2014.32.13.gif?raw=true "ISS Mapper Gif")
 
 ### Purpose
 
@@ -14,7 +14,9 @@
 * Javascript
   - AJAX
   - Async/await
+  - Promises
+  - JSON
   - Dom Manipulation
   - Leaflet Library    
-* CSS
+* SCSS
 * HTML
